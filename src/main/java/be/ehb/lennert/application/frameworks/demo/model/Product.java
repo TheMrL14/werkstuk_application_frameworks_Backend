@@ -48,7 +48,8 @@ public class Product {
     }
 
     public Set<Order> getOrder() {
-        return orders;
+       return orders;
+
     }
 
     public void setOrder(Set<Order> order) {

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @JsonIgnoreProperties({"user","product"})
 
 public class Order {
@@ -17,9 +17,9 @@ public class Order {
     @GeneratedValue
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    private User user;
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ManyToMany
     @JoinTable(
@@ -39,12 +39,12 @@ public class Order {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getUser() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Customer customer) {
+        this.customer = customer;
     }
 
     public Set<Product> getProduct() {

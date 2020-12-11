@@ -1,15 +1,17 @@
 package be.ehb.lennert.application.frameworks.demo.model.CRM;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "client")
-public class User {
+@Table(name = "customer")
+public class Customer {
     @Id
     @GeneratedValue
-    private String id;
+    private long id;
 
     private String frontName;
     private String lastName;
@@ -22,14 +24,18 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Order> orders = new HashSet<Order>();
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Order> orders = new ArrayList<Order>();
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
@@ -81,11 +87,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 }
