@@ -10,21 +10,24 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/animals")
-public class AnimaController {
+public class AnimalController {
 
     private AnimalDAO dao;
-    public AnimaController(AnimalDAO dao){this.dao = dao;}
+    public AnimalController(AnimalDAO dao){this.dao = dao;}
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Animal> findAllAnimals(){return dao.findAll();}
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Optional<Animal> findAnimalById(@PathVariable(name = "id") Long id ){
         return dao.findById(id);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "create" ,method = RequestMethod.POST)
     @ResponseBody
     public Animal addNewAnimal(@RequestBody Animal newCourse){

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "animal")
 public class Animal extends Product {
 
-    private String species;
+    private String name;
     private long weight;
     private long height;
     private String colour;
@@ -20,12 +20,12 @@ public class Animal extends Product {
     private String nativeTo;
 
 
-    public String getSpecies() {
-        return species;
+    public String getName() {
+        return name;
     }
 
-    public void setSpecies(String species) {
-        this.species = species;
+    public void setName(String species) {
+        this.name = species;
     }
 
     public long getWeight() {

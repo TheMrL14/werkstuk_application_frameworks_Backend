@@ -18,6 +18,8 @@ public class Product {
     private Long id;
     @Column(name = "product_name", nullable = false)
     private String productName;
+    private String category;
+    private double price;
     private String description;
 
     @ManyToMany(mappedBy = "products")
@@ -47,10 +49,30 @@ public class Product {
         this.description = description;
     }
 
-    public Set<Order> getOrder() {
-       return orders;
-
+    public String getCategory() {
+        return category;
     }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
 
     public void setOrder(Set<Order> order) {
         this.orders = order;
