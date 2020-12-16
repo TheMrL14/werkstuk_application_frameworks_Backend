@@ -14,7 +14,7 @@ public class Animal extends Product {
     private long height;
     private String colour;
     @Enumerated(EnumType.STRING)
-    @Column(name = "Ministry_of_Magic_Classification")
+    @Column(name = "ministry_of_magic_classification")
     private MOMClassification classification;
     @Column(name = "native_to")
     private String nativeTo;
