@@ -18,7 +18,8 @@ public class Product {
     private Long id;
     @Column(name = "product_name", nullable = false)
     private String productName;
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private ProductType category;
     private double price;
     private String description;
 
@@ -49,11 +50,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getCategory() {
+    public ProductType getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductType category) {
         this.category = category;
     }
 
