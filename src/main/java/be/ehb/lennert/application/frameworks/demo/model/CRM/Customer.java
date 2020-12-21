@@ -10,6 +10,7 @@ import java.util.Set;
 @Table(name = "customer")
 public class Customer {
     @Id
+    @Column( name = "user_id")
     @GeneratedValue
     private long id;
 
