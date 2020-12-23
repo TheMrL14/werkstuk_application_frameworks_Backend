@@ -3,9 +3,11 @@ package be.ehb.lennert.application.frameworks.demo.security;// src/main/java/com
 import be.ehb.lennert.application.frameworks.demo.security.AudienceValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -39,10 +41,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers("/api/**").permitAll()
-                .mvcMatchers("/private/**").fullyAuthenticated()
-                .and().cors()
-                .and().oauth2ResourceServer().jwt();
+        http
+                .formLogin(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(auth -> auth
+                        .mvcMatchers(HttpMethod.POST,"/api/user/**").authenticated()
+                        .mvcMatchers(HttpMethod.POST,"/api/**").hasAuthority("write:products")
+                        .mvcMatchers(HttpMethod.GET,"/api/products/**").permitAll()
+                        .mvcMatchers(HttpMethod.GET,"/api/user/**").permitAll() // TODO: DELETE IF WORKING
+                        .mvcMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("write:products")
+                        .anyRequest().authenticated()
+                )
+                //.mvcMatchers("/private/**").fullyAuthenticated()
+                //.mvcMatchers("/admin/**").hasRole("ADMIN")
+                //.mvcMatchers("/create/**","/delete/**")
+                //.mvcMatchers("/api/user/**").hasAuthority("read:orders")
+                .cors()
+                .and().oauth2ResourceServer().jwt()
+        ;
     }
 }

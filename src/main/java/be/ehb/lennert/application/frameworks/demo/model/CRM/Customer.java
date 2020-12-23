@@ -1,5 +1,8 @@
 package be.ehb.lennert.application.frameworks.demo.model.CRM;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,21 +12,22 @@ import java.util.Set;
 @Entity
 @Table(name = "customer")
 public class Customer {
+
     @Id
     @Column( name = "user_id")
-    @GeneratedValue
-    private long id;
+    @JsonProperty
+    private String id;
 
     private String frontName;
     private String lastName;
     private String address;
 
     @Column(nullable = false)
-    private String userName;
+    @JsonProperty
+    private String username;
+    @JsonProperty
     @Column(nullable = false)
-    private String eMail;
-    @Column(nullable = false)
-    private String password;
+    private String email;
 
     @OneToMany(
             mappedBy = "customer",
@@ -32,11 +36,11 @@ public class Customer {
     )
     private List<Order> orders = new ArrayList<Order>();
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -65,28 +69,22 @@ public class Customer {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String geteMail() {
-        return eMail;
+        return email;
     }
 
     public void seteMail(String eMail) {
-        this.eMail = eMail;
+        this.email = eMail;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public List<Order> getOrders() {
         return orders;
