@@ -48,9 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .mvcMatchers(HttpMethod.POST,"/api/user/**").authenticated()
                         .mvcMatchers(HttpMethod.POST,"/api/**").hasAuthority("write:products")
                         .mvcMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("write:products")
+                        .mvcMatchers(HttpMethod.GET,"/payment/**").authenticated()
+                        .mvcMatchers(HttpMethod.POST,"/payment/**").authenticated()
                         .mvcMatchers(HttpMethod.GET,"/api/products/**").permitAll()
-                        .mvcMatchers(HttpMethod.GET,"/api/user/**").permitAll() // TODO: DELETE IF WORKING
-                        .mvcMatchers(HttpMethod.GET,"/api/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 //.mvcMatchers("/private/**").fullyAuthenticated()
