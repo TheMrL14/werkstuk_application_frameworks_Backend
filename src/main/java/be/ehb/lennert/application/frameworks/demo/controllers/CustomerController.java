@@ -39,6 +39,7 @@ public class CustomerController {
         return dao.findById(id);
     }
 
+    //POST request
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Customer addNewUser(@RequestBody Customer newCustomer){

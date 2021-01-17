@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 //https://stackabuse.com/stripe-integration-with-java-spring-for-payment-processing/
-
+//Not fully functioning ( no charging )
 @Controller
 @RequestMapping("/payment")
 @CrossOrigin("*")
@@ -41,6 +41,7 @@ public class PaymentController {
         return new ResponseEntity<Object>(model, HttpStatus.OK);
     }
 
+    //not used
     @GetMapping(value = "/charge")
     @ResponseBody
     public ResponseEntity<Object> charge(@RequestParam("payment_intent") String intentId,@RequestParam("payment_intent_client_secret") String client_secret, @RequestParam("redirect_status") String redirect_status, Model model) throws Exception {
