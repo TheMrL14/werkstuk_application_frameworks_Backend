@@ -5,7 +5,7 @@ import be.ehb.lennert.application.frameworks.demo.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -24,10 +24,13 @@ public class Order {
     @ManyToMany
     @JoinTable(
             name = "order_products",
-            joinColumns = {@JoinColumn(name = "product_id")},
-            inverseJoinColumns = {@JoinColumn(name = "order_id")}
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")}
     )
-    private Set<Product> products;
+    private List<Product> products;
+
+
+
 
 
     public void setId(long id) {
@@ -47,11 +50,13 @@ public class Order {
         this.customer = customer;
     }
 
-    public Set<Product> getProduct() {
+    public List<Product> getProduct() {
         return products;
     }
 
-    public void setProduct(Set<Product> product) {
+    public void setProduct(List<Product> product) {
         this.products = product;
     }
+
+    public void addProduct(Product p){this.products.add(p);}
 }

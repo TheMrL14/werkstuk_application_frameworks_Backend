@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(auth -> auth
                         .mvcMatchers(HttpMethod.POST,"/api/user/**").authenticated()
+                        .mvcMatchers(HttpMethod.POST,"/api/order/**").authenticated()
+                        .mvcMatchers(HttpMethod.POST,"/api/order/**/**").authenticated()
                         .mvcMatchers(HttpMethod.POST,"/api/**").hasAuthority("write:products")
                         .mvcMatchers(HttpMethod.DELETE,"/api/**").hasAuthority("write:products")
                         .mvcMatchers(HttpMethod.GET,"/payment/**").authenticated()
@@ -54,10 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                         .anyRequest().authenticated()
                 )
-                //.mvcMatchers("/private/**").fullyAuthenticated()
-                //.mvcMatchers("/admin/**").hasRole("ADMIN")
-                //.mvcMatchers("/create/**","/delete/**")
-                //.mvcMatchers("/api/user/**").hasAuthority("read:orders")
+
                 .cors()
                 .and().oauth2ResourceServer().jwt()
         ;
